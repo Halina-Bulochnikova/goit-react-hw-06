@@ -1,8 +1,10 @@
-const AppStore = {
-  contacts: {
-		items: []
-	},
-  filters: {
-		name: ""
-	}
-}
+import { configureStore } from "@reduxjs/toolkit";
+import contactsReducer from "./contactsSlice";
+import filtersReducer from "./filtersSlice";
+
+export const store = configureStore({
+  reducer: {
+    contacts: contactsReducer,
+    filters: filtersReducer,
+  },
+});

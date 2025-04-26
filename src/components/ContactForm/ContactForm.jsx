@@ -7,30 +7,28 @@ import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contactsSlice";
 
 const ContactForm = () => {
-
-  const contacts = useSelector((state) => state.contacts);
+  const contacts = useSelector((state) => state.contacts.items);
   console.log("Contacts in state:", contacts);
-  
-const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, options) => {
-   const newContact = {
-     id: nanoid(),
-     name: values.name,
-     number: values.number,
-   };
-   const isDuplicate = contacts.some(
-     (contact) => contact.name.toLowerCase() === newContact.name.toLowerCase()
-   );
+    const newContact = {
+      id: nanoid(),
+      name: values.name,
+      number: values.number,
+    };
+    const isDuplicate = contacts.some(
+      (contact) => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
 
-   if (isDuplicate) {
-     alert(`${newContact.name} is already in contacts.`);
-   } else {
-     dispatch(addContact(newContact));
-     options.resetForm();
-   }
- };
+    if (isDuplicate) {
+      alert(`${newContact.name} is already in contacts.`);
+    } else {
+      dispatch(addContact(newContact));
+      options.resetForm();
+    }
+  };
 
   const initialValues = {
     name: "",
@@ -65,11 +63,7 @@ const dispatch = useDispatch();
           <Field className={css.field} name="number"></Field>
           <ErrorMessage className={css.error} name="number" component="div" />
         </label>
-        <button
-          onSubmit={handleSubmit}
-           className={css.formButton}
-          type="submit"
-        >
+        <button className={css.formButton} type="submit">
           Add contact
         </button>
       </Form>
